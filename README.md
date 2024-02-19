@@ -1,22 +1,34 @@
-# DBT Server
+# Multi Tenant System
 
-## Development Setup
+## Installation
 
-### 1. Venv
+1. Clone the repository:
 
-```bash
-    python3 -m venv .venv # create venv
-    source .venv/Scripts/activate # activate venv
-    pip install -r requirements.txt # install requirements
-```
+2. Create a virtual environment: (Optional but recommended)
 
-### 2. Run dev server
+    ```bash
+    python3 -m venv .venv
+    source .venv/Scripts/activate
+    ```
 
-```bash
-    uvicorn main:app  --reload
-```
+3. Install dependencies using pip:
 
-## Alembic Starting
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-1. `alembic stamp head` # pull the latest migration from the database
-2. run all migrations on al tenants `alembic upgrade head`
+## Usage
+
+1. Run the FastAPI application:
+
+    ```bash
+    uvicorn main:app --reload
+    ```
+
+2. Access the interactive API documentation:
+   - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
+   - Alternatively, access [http://localhost:8000/redoc](http://localhost:8000/redoc) for ReDoc.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

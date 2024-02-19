@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always # the container will restart if it fails
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # automatically set the password from the .env file
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5432:5432 # expose port 5432 to the vm host machine external ip address
+    volumes:
+      # anonymous volume to persist data between container restarts
+      - db:/var/lib/postgresql/data # the data will be stored in the db volume and var/lib/postgresql/data folder is where postgres stores its data by default
+  pgadmin: # GUI for postgres
+    image: dpage/pgadmin4:8.0
+    restart: always # the container will restart if it fails
+    container_name: pgadmin
+    depends_on:
+      - db # make sure the db container is running before starting pgadmin
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 80:80 # expose port 80 to the host machine internal ip address
+      - 443:443 # expose port 443 to the host machine internal ip address (https) - need certificate to work
+    volumes:
+      - pgadmin:/var/lib/pgadmin # persist data between container restarts ex. configs
+volumes:
+  db: # anonymous volume, if we did not specify a name, it would be randomly generated
+  pgadmin: # anonymous volume, if we did not specify a name, it would be randomly generated
+
+  # ================= TODO: add pgadmin certificate ===========================
+  # possibly need a domain name
+  # possibly need nginx to redirect http to https
+  # using a self-signed certificate cert-bot to generate a certificate

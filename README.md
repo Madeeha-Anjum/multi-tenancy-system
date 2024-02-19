@@ -1,10 +1,14 @@
-# Multi Tenant System
+# Multi-Tenant System with FastAPI and Postgres :rocket:
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/) [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-282C34?style=flat&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/) [![Alembic](https://img.shields.io/badge/Alembic-4E98E8?style=flat&logo=alembic&logoColor=white)](https://alembic.sqlalchemy.org/en/latest/) [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/) [![Docker Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat&logo=docker&logoColor=white)](https://docs.docker.com/compose/) [![Google Cloud Platform](https://img.shields.io/badge/Google_Cloud_Platform-4285F4?style=flat&logo=google-cloud&logoColor=white)](https://cloud.google.com/) [![Pydantic](https://img.shields.io/badge/Pydantic-2B7DBC?style=flat&logo=python&logoColor=white)](https://pydantic-docs.helpmanual.io/) [![Uvicorn](https://img.shields.io/badge/Uvicorn-2B7DBC?style=flat&logo=python&logoColor=white)](https://www.uvicorn.org/) [![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white)](https://docs.pytest.org/en/6.2.x/) [![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)](https://git-scm.com/) [![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=flat&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/) [![Swagger UI](https://img.shields.io/badge/Swagger_UI-85EA2D?style=flat&logo=swagger&logoColor=black)](https://swagger.io/tools/swagger-ui/) [![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat&logo=markdown&logoColor=white)](https://www.markdownguide.org/)
+
+**A Scalable Web Application with Efficient Database Management**
 
 In a multi-tenant system, there's one central software system, like a website, that serves multiple users or groups, also known as tenants. Each tenant, such as `company1.example.com` and `company2.example.com`, operates within this shared system.
 
 Despite using the same website, each tenant is associated with its own schema and has its own separate area or "space" within the system where they store their data and settings. This ensures that the data and settings of one tenant are completely separate and inaccessible to other tenants.
 
-## Installation
+## Installation :wrench:
 
 1. Clone the repository:
 
@@ -45,17 +49,17 @@ Despite using the same website, each tenant is associated with its own schema an
     alembic upgrade head
     ```
 
-    see [Databases Information](./_setup_guide/database/database_structure.md) for more information on the database structure.
+    See [Databases Information](./_setup_guide/database/database_structure.md) for more information on the database structure.
 
 7. Load the initial data into the database: (optional)
-   When the application is run for the first time, it will create the necessary tables in the database.
-   However, if you want to load some initial data into the database, you can run the following command:
+   - When the application is run for the first time, it will create the necessary tables in the database.
+   However, if you want to load some initial data into the tables, you can run the following file using the command below:
 
      ```bash
      python scripts/startup.py
      ```
 
-## Usage
+## Usage :computer:
 
 1. Run the FastAPI application:
 
@@ -67,6 +71,23 @@ Despite using the same website, each tenant is associated with its own schema an
    - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
    - Alternatively, access [http://localhost:8000/redoc](http://localhost:8000/redoc) for ReDoc.
 
-## License
+## Tools and Technologies :hammer_and_wrench:
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [Alembic](https://alembic.sqlalchemy.org/en/latest/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Google Cloud Platform](https://cloud.google.com/)
+- [Pydantic](https://pydantic-docs.helpmanual.io/)
+- [Uvicorn](https://www.uvicorn.org/)
+- [Pytest](https://docs.pytest.org/en/6.2.x/)
+- [Git](https://git-scm.com/)
+- [VSCode](https://code.visualstudio.com/)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
+- [Markdown](https://www.markdownguide.org/)
+
+## License :page_facing_up:
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

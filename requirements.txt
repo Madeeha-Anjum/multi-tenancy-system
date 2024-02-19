@@ -1,0 +1,16 @@
+#  fase api
+fastapi==0.108.0
+uvicorn==0.25.0
+pydantic==2.5.3
+
+#  postgress
+psycopg2==2.9.9
+SQLAlchemy==2.0.25
+
+# alemic
+alembic==1.13.1
+typeguard==4.1.5  
+
+# env
+pydantic-settings==2.1.0
+python-dotenv==1.0.1

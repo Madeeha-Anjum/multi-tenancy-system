@@ -1,5 +1,4 @@
 import logging
-from msilib import schema
 import os
 from alembic import context
 from dotenv import load_dotenv

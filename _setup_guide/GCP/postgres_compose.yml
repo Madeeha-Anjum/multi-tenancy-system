@@ -5,9 +5,9 @@ services:
     image: postgres:16-alpine
     restart: always # the container will restart if it fails
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # automatically set the password from the .env file
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${DB_PASS} # automatically set the password from the .env file
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - 5432:5432 # expose port 5432 to the vm host machine external ip address
     volumes:

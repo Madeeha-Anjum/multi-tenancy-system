@@ -25,14 +25,14 @@ Note: curl -o <filename> <url> to download the official docker install script
 ## Install Postgres on the VM
 
 1. Create ".env" file with the following variables inside the `_setup_guide` folder on the vm in the home directory
-   - `POSTGRES_USER=postgres`
-   - `POSTGRES_PASSWORD=postgres`
-   - `POSTGRES_DB=postgres`
+   - `DB_USER=postgres`
+   - `DB_PASS=postgres`
+   - `DB_NAME=postgres`
    - `PGADMIN_DEFAULT_EMAIL`
    - `PGADMIN_DEFAULT_PASSWORD`
 2. Export the variables in the ".env" to the environment `export $( grep -v "^#" .env | xargs)`
 3. Copy the `postgres_compose.yml` file from this folder to the vm inside "home/_setup_guide" folder
-4. run the file containers `docker compose -f ./_setup_guide/postgres_compose.yml up`
+4. run the file containers `docker compose -f ./_setup_guide/postgres_compose.yml up` or use a .env file to run the containers `docker compose -f ./_setup_guide/postgres_compose.yml --env-file .env up`
 
 ## Expose the ports on the VM
 

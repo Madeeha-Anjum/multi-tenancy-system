@@ -1,6 +1,7 @@
 from contextlib import contextmanager
 from enum import Enum
 from typing import Optional
+import alembic
 from fastapi import Depends, FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session, sessionmaker
@@ -8,7 +9,6 @@ from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import DeclarativeBase
 import sqlalchemy as sa
 
-import migrations
 from alembic.config import Config
 from alembic.migration import MigrationContext
 from app.config.settings import get_settings
@@ -269,10 +269,11 @@ def tenant_create(name: str, schema: str, host: str) -> None:
     # connect to the correct schema # NOTE all addition to the database need to be given the correct schema
     # TODO: read the host and check if its in the shared schema tenants table and then proced tp allo wany changes to the database
     with with_db(schema) as db:
+     
         # Load Alembic configuration and create Alembic context
         alembic_config = Config("alembic.ini")
         context = MigrationContext.configure(db.connection())
-        script = migrations.script.ScriptDirectory.from_config(alembic_config)
+        script = alembic.script.ScriptDirectory.from_config(alembic_config)
 
         # Check if the database is up-to-date with migrations
         if context.get_current_revision() != script.get_current_head():

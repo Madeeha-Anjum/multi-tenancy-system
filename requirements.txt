@@ -14,3 +14,9 @@ typeguard==4.1.5
 # env
 pydantic-settings==2.1.0
 python-dotenv==1.0.1
+
+# typer 
+typer==0.9.0
+# typer extras:shellingham, rich
+shellingham==1.5.4 # Shellingham is a library for detecting what shell the current Python executable is running in.
+rich==13.7.1 # Rich is a Python library for rich text and beautiful formatting in the terminal.

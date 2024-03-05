@@ -13,9 +13,9 @@ class Dev(BaseSettings):
     # loaded from environment and .env file
     model_config = SettingsConfigDict(
         env_file='.env', 
+        extra='ignore',
         env_file_encoding='utf-8',
         case_sensitive=True,
-        extra='forbid',
         populate_by_name = True,  
     )        
     ENVIRONMENT: str 
@@ -24,8 +24,6 @@ class Dev(BaseSettings):
     DB_HOST: str
     DB_PORT: str
     DB_NAME: str
-    
-    
     
 
 def get_settings():

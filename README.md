@@ -39,8 +39,8 @@ Despite using the same website, each tenant is associated with its own schema an
     - check app.config.settings.py for more environment variables
 
 5. Create a postgres database
-   - Option1: Follow the steps in the `_setup_guide` folder to create a postgres database on Google Cloud Platform
-   - Option2: Use the docker compose file in the `_setup_guide` folder to run the database locally
+   - Option1: Follow the steps in the `_guide` folder to create a postgres database on Google Cloud Platform
+   - Option2: Use the docker compose file in the `_guide` folder to run the database locally
    - Option 3: Download postgres and pgAdmin and run the database locally
 
 6. Run alembic migrations:
@@ -50,14 +50,23 @@ Despite using the same website, each tenant is associated with its own schema an
     ```
 
     See [Databases Information](./_setup_guide/database/database_structure.md) for more information on the database structure.
+7. Optional: Run management commands to create tenants:
+    For example, to create a tenant with the name `company1` and the domain `company1.example.com`, run the following command:
 
-7. Load the initial data into the database: (optional)
+    ```bash
+        python manage.py tenant create_tenant company1 company1 company1.localhost 
+    ```
+
+    **Tips:**
+    `python manage.py --help` for more information on the management commands available
+
+<!-- 
+TODO: possible seas file for initial data
+1. Load the initial data into the database: (optional)
    - When the application is run for the first time, it will create the necessary tables in the database.
    However, if you want to load some initial data into the tables, you can run the following file using the command below:
 
-     ```bash
-     python scripts/startup.py
-     ```
+    -->
 
 ## Usage :computer:
 
@@ -74,6 +83,7 @@ Despite using the same website, each tenant is associated with its own schema an
 ## Tools and Technologies :hammer_and_wrench:
 
 - [FastAPI](https://fastapi.tiangolo.com/)
+- [Typer](https://typer.tiangolo.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/)

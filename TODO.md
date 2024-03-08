@@ -1,16 +1,16 @@
 # TODO
 
 - [x] Test Setup docs
-- [ ] Create management commands to place tenants in the tenants table
-- [ ] integrate Ruff
+- [x] Create management commands to place tenants in the tenants table
+- [x] integrate Ruff
+- [ ] use pdm for package manager
 - [ ] Add deployment automation for backend and database hosting
 - [ ] Think about removing tenants_default table
 - [ ] Clean code base
 - [ ] Use fast api router
 - [ ] Add a custom  logger with colors for each type of log
 - [x] Add Typer for CLI
-- [ ] use pdm for package manager
-- [ ]
+- [ ] do need pre-commit script for black
 
 ## Extra Features
 

@@ -33,3 +33,5 @@ Each migration has a unique version number that is that is database to find the 
     - This command shows the history of migrations in a more detailed way.
 9. `alembic show`
     - This command shows the current revision of the database and the latest revision available in the migration scripts on your filesystem.
+10. how to run a  single amebic command `alembic upgrade [revision]` example `alembic upgrade 3869`
+    - This command applies the migration with the specified revision number to the database.

@@ -20,3 +20,7 @@ typer==0.9.0
 # typer extras:shellingham, rich
 shellingham==1.5.4 # Shellingham is a library for detecting what shell the current Python executable is running in.
 rich==13.7.1 # Rich is a Python library for rich text and beautiful formatting in the terminal.
+
+
+# =========== dev depenedencies ===========
+rich==13.7.1 # file formatting and linting 

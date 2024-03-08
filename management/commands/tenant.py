@@ -6,7 +6,7 @@ app = typer.Typer()
 
 
 @app.command(name="create_tenant")
-def create_tenant( name: str, schema: str, host: str):
+def create_tenant(name: str, schema: str, host: str):
     # Start the server subprocess
     with Popen(["uvicorn", "main:app"], stdout=PIPE, stderr=PIPE) as server_process:
         try:

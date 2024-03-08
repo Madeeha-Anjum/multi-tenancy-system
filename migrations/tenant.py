@@ -1,8 +1,8 @@
 import functools
 from typing import Callable
 
-from typeguard import typechecked
 from alembic import op
+from typeguard import typechecked
 
 
 @typechecked

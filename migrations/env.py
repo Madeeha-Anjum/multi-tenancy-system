@@ -1,17 +1,18 @@
 import logging
 import os
+from logging.config import fileConfig
+
 from alembic import context
 from dotenv import load_dotenv
-from logging.config import fileConfig
 from sqlalchemy import MetaData, engine_from_config, pool, text
-from main import Base
 
+from main import Base
 
 # Load environment variables from .env file
 load_dotenv()
- 
+
 # Alembic Config object used to run alembic commands
-config = context.config     
+config = context.config
 
 # Configure logging based on Alembic config file
 if config.config_file_name is not None:
@@ -31,9 +32,7 @@ db_user, db_pass, db_host, db_port, db_name = (
 
 # Validate required environment variables
 if None in (db_user, db_pass, db_host, db_port, db_name):
-    raise ValueError(
-        "\n\033[91mOne or more required environment variables are not set\033[0m\n"
-    )
+    raise ValueError("\n\033[91mOne or more required environment variables are not set\033[0m\n")
 
 # Set SQLAlchemy URL in Alembic config
 config.set_main_option(
@@ -54,7 +53,6 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    
     context.configure(
         url=f"postgresql://{db_user}:xxxxxxxxx@xxxxxxxxx:{db_port}/{db_name}",
         target_metadata=Base.metadata,
@@ -66,38 +64,40 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
-def run_migrations_online() -> None: 
+def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine
     and associate a connection with the context.
 
     """
-    naming_convention= {
+    naming_convention = {
         "uq": "uq_%(table_name)s_%(column_0_name)s",
         "ix": "ix_%(table_name)s_%(column_0_name)s",
         "ck": "ck_%(table_name)s_%(constraint_name)s",
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-        "pk": "pk_%(table_name)s"
+        "pk": "pk_%(table_name)s",
     }
-    
-    translated = MetaData(naming_convention=naming_convention)   
-    
+
+    translated = MetaData(naming_convention=naming_convention)
+
     def translate_schema(table, to_schema, constraint, referred_schema):
         # pylint: disable=unused-argument
         return to_schema
-    
+
     for table in Base.metadata.tables.values():
-        schema="tenant_default" if table.schema == "tenant" else table.schema
-        table.tometadata( translated, schema=schema, referred_schema_fn=translate_schema)
-        
-    # Create engine from Alembic config  
+        schema = "tenant_default" if table.schema == "tenant" else table.schema
+        table.tometadata(translated, schema=schema, referred_schema_fn=translate_schema)
+
+    # Create engine from Alembic config
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}), # get the section from the config file that specifies the database connection
+        config.get_section(
+            config.config_ini_section, {}
+        ),  # get the section from the config file that specifies the database connection
         prefix="sqlalchemy.",  # prefix to strip from the url
-        poolclass=pool.NullPool, # no reuse of connections
+        poolclass=pool.NullPool,  # no reuse of connections
     )
-    
+
     # Connect to database
     with connectable.connect() as connection:
         context.configure(
@@ -105,19 +105,21 @@ def run_migrations_online() -> None:
             target_metadata=translated,
             compare_type=True,
             transaction_per_migration=True,
-            include_schemas=True,  
+            include_schemas=True,
         )
         with context.begin_transaction():
             try:
                 context.run_migrations()
-                logging.info("\nAlembic script finished\n"
+                logging.info(
+                    "\nAlembic script finished\n"
                     "\033[92mOperation Successful if:\033[0m COMMIT\n"
                     "\033[93mOperation Failed if:\033[0m ROLLBACK\n"
                 )
             except Exception as e:
                 logging.error(f"\033[91mError running migrations: {e}\033[0m")
                 context.get_context().connection.execute(text("ROLLBACK"))
-                 
+
+
 if context.is_offline_mode():
     """
     Run migrations in 'offline' mode using --sql option.
@@ -126,5 +128,3 @@ if context.is_offline_mode():
 else:
     """Run migrations in 'online' mode. (default mode)"""
     run_migrations_online()
-
- 

@@ -1,0 +1,54 @@
+target-version = "py311"
+exclude = [
+    ".venv",   #
+    ".git",
+    ".github",
+]
+
+line-length = 120
+indent-width = 4
+
+# Specifies which linting codes to enable, disable, or ignore, or which ones are fixable.
+[lint]
+preview = true
+select = [
+    "W",   # pycodestyle (E, W)
+    "E",   # pycodestyle (E, W)
+    "E4",  #Error codes related to imports, such as undefined names or unused imports.
+    "E7",  #Error codes related to statements, such as invalid syntax or undefined variables.
+    "E9",  #Error codes related to the runtime, such as exceptions or missing type 
+    "F",   # Pyflakes (F)
+    "B",   # flake8-bugbear (B)
+    "I",   # isort (I)
+    "D",   # pydocstyle (D)
+    "RUF", # Ruff (RUF)
+]
+# ignore  starts one of the select codes
+ignore = [
+    "D100", # ignore missing docs
+    "D101", # ignore missing docstring in public class 
+    "D103", # ignore missing docstring in public function
+    "D415", # First line should end with a period, question mark, or exclamation point
+    "B008", # Do not perform function calls in argument defaults.
+]
+fixable = [
+    "I001", # isort (I001)
+    "D212", # Multi-line docstring summary should start at the first line
+]
+extend-select = [
+    "E501", # `line-too-long`  
+]
+
+
+# extend-select  starts one of the select codes
+[lint.pydocstyle]
+convention = "google"
+
+# Specifies which plugins to enable, disable, or ignore for formatting.
+[format]
+docstring-code-format = true
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-line-length = "dynamic"

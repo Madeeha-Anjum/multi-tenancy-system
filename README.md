@@ -42,15 +42,15 @@ Despite using the same website, each tenant is associated with its own schema an
 
     ```env
     ENVIRONMENT=development
+    DB_PASS=root
+    DB_USER=user
+    DB_NAME=db_name
+    PGADMIN_DEFAULT_EMAIL=user@gmail.com
+    PGADMIN_DEFAULT_PASSWORD=password
 
-    DB_USER=...
-    DB_PASS=...
-    PGADMIN_DEFAULT_EMAIL=...
-    PGADMIN_DEFAULT_PASSWORD=...
 
     DB_PORT=5432
     DB_HOST=localhost 
-    DB_NAME=...
     ```
 
     - check app.config.settings.py for more environment variables

@@ -51,9 +51,10 @@ Despite using the same website, each tenant is associated with its own schema an
     ```
 
     - check app.config.settings.py for more environment variables
-    -
+
 6. Create a postgres database
-   - Follow the steps in the `_guide/database/local_database_setup.md` folder to create a postgres database locally using Docker.
+   - Follow the steps in the [./.guide/database/local_database_setup.md](./.guide/database/local_database_setup.md)
+   - folder to create a postgres database locally using Docker.
 
 7. Run alembic migrations:
 

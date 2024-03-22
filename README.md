@@ -63,17 +63,17 @@ PGADMIN_DEFAULT_PASSWORD=password
 
 1. Start postgres database in docker
 
-```bash
-docker-compose -f .local_database/postgres_compose.yml --env-file .env up
-```
+   ```bash
+   docker-compose -f .local_database/postgres_compose.yml --env-file .env up
+   ```
 
-1. Login to PG Admin
+2. Login to PG Admin
    - open [localhost](http://localhost)
    - login with the credentials you provided in the `.env` file
      - `PGADMIN_DEFAULT_EMAIL`
      - `PGADMIN_DEFAULT_PASSWORD`
 
-2. Setup PGAdmin Access to database
+3. Setup PGAdmin Access to database
 
    Add a new server `Register->Server` with the following details:
 

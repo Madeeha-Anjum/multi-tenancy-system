@@ -8,106 +8,133 @@ In a multi-tenant system, there's one central software system, like a website, t
 
 Despite using the same website, each tenant is associated with its own schema and has its own separate area or "space" within the system where they store their data and settings. This ensures that the data and settings of one tenant are completely separate and inaccessible to other tenants.
 
-## Installation :wrench:
+## Installation
 
-### Pre-requisites :clipboard:
+## Pre-requisites :clipboard:
 
 1. Clone the repository
 
 2. Create a virtual environment
 
     ```bash
-    python3 -m venv .venv
+    # Windows
+    py -m venv .venv
     source .venv/Scripts/activate
+
+    # MacOS / Linux 
+    python3 -m venv .venv
+    source .venv/bin/activate
     ```
 
 3. Install [PDM](https://pdm.fming.dev/) (Python Development Master) package manager:
 
     ```bash
-        pip install pdm
+    pip install pdm
     ```
 
-    - PDM is a modern Python package manager with a focus on simplicity and ease of use. It allows you to specify dependencies in a `pyproject.toml` file and install them using a lock file.
+## Getting Started :wrench:
 
-4. Install dependencies using pdm:
+### Install python dependencies
 
-    ```bash
-    pdm install
-    ```
+```bash
+pdm install
+```
 
-5. Create a `.env` file in the root directory and add the following environment variables:
+### Setup `.env` file
 
-    ```env
-    # Environment settings
-    ENVIRONMENT=development
+Create a `.env` file in the root directory and add the following environment variables:
 
-    # Database authentication
-    DB_PASS=root
-    DB_USER=user
-    DB_NAME=db_name
-    PGADMIN_DEFAULT_EMAIL=user@user.com
-    PGADMIN_DEFAULT_PASSWORD=password
+```env
+ENVIRONMENT=development
 
-    # Project settings
-    DB_PORT=5432
-    DB_HOST=localhost 
-    ```
+DB_NAME=db_name
+DB_USER=user
+DB_PASS=root
+DB_PORT=5432
+DB_HOST=localhost 
 
-    - check app.config.settings.py for more environment variables
+PGADMIN_DEFAULT_EMAIL=user@user.com
+PGADMIN_DEFAULT_PASSWORD=password
+```
 
-6. Create a postgres database
-   - Follow the steps in the ./.guide/database/local_database_setup.md
-   - folder to create a postgres database locally using Docker.
+### Setup Local Postgres Database
 
-7. Run alembic migrations and check your database for the tables created: `schemas->tables`
+- Alternatively you can setup a GCP database following the instructions in [.guide/gcp_database]
+
+1. Start postgres database in docker
+
+```bash
+docker-compose -f .local_database/postgres_compose.yml --env-file .env up
+```
+
+1. Login to PG Admin
+   - open [localhost](http://localhost)
+   - login with the credentials you provided in the `.env` file
+     - `PGADMIN_DEFAULT_EMAIL`
+     - `PGADMIN_DEFAULT_PASSWORD`
+
+2. Setup PGAdmin Access to database
+
+   Add a new server `Register->Server` with the following details:
+
+   ```yaml
+   General:
+        # or any name you prefer
+        Name : myserver 
+   Connection:
+        # as configured in .local_database/postgres_compose.yml
+        Port: 5432 (from docker container)
+        Hostname/address: db 
+        Username: postgres
+        Password: postgres
+   ```
+
+### Setup Database schemas and tables
+
+1. Run alembic migrations:
 
     ```bash
     alembic upgrade head
     ```
 
-    See [Databases Information](.guide/database/database_structure.md) for more information on the database structure.
+    > For more information on the database structure see [.guide/gcp_postgres_setup.md](./guide/gcp_postgres_setup.md).
 
-8. Run management commands to create your first tenants:
-    For example, to create a tenant with the name `company1` and the domain `company1.example.com`.Check your database for the new tenant created:
+2. Run management commands to create your first tenants:
+    >`python manage.py --help` for more information on the management commands available
+
+    For example, to create a tenant with the name `company1` and the domain `company1.example.com`, run the following command:
 
     ```bash
-        python manage.py tenant create_tenant company1 company1 company1.localhost 
+    python manage.py tenant create_tenant company1 company1 company1.localhost 
     ```
-
-    **Tips:**
-    `python manage.py --help` for more information on the management commands available
 
 ## Running the Application :running:
 
-1. Run the FastAPI application using the following 2 options:
+1. Run the application
 
    ````bash
-       pdm run start`
+   pdm run start
+   # equivalent to: uvicorn main:app --reload 
    ````
 
-    - optionally: `uvicorn main:app --reload`
-
 2. Access the interactive API documentation:
-   - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
-   - Alternatively, access [http://localhost:8000/redoc](http://localhost:8000/redoc) for ReDoc.
-
-<!-- 
-TODO: possible seed file for initial data
-1. Load the initial data into the database: (optional)
-   - When the application is run for the first time, it will create the necessary tables in the database.
-   However, if you want to load some initial data into the tables, you can run the following file using the command below:
-
-    -->
-
-<!-- ## Testing :white_check_mark: -->
+   - Open your browser and go to <http://localhost:8000/docs> for Swagger UI.
+   - Alternatively, access <http://localhost:8000/redoc> for ReDoc.
 
 ## Tools and Technologies :hammer_and_wrench:
 
+- [PDM](https://pdm.fming.dev/)
+  - PDM is a modern Python package manager with a focus on simplicity and ease of use. It allows you to specify dependencies in a `pyproject.toml` file and install them using a lock file.
+  - `pdm use` to select the venv
+  - add package in pyproject.toml file `pdm add package_name`
+  - add package to dev dependencies `pdm add package_name --dev`
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [Typer](https://typer.tiangolo.com/)
+
 - [PostgreSQL](https://www.postgresql.org/)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/)
+  - See [.guide/alembic_commands.md](./.guide/alembic_commands.md) for more information on how to use Alembic.
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Google Cloud Platform](https://cloud.google.com/)

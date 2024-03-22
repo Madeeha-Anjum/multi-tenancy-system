@@ -8,9 +8,8 @@
       DB_PASS=postgres
       DB_USER=postgres
       DB_NAME=postgres
-
-      PGADMIN_DEFAULT_EMAIL
-      PGADMIN_DEFAULT_PASSWORD
+      PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD=password
     ```
 
 3. Run the following command to start the database:
@@ -23,7 +22,7 @@
 
 5. Add a new server `Register->Server" with the following details:
 
-```
+```bash
  +-------------------+  +-------------------+
  |                   |                      |
  |    General        |       Connection     |
@@ -35,12 +34,12 @@
                          +-------------+
 ```
 
-Name : myserver (or any name you prefer)
-Port: 5432
-Hostname/address: (DOCKER CONTAINER NAME OR IP ADDRESS)
-Maintenance database: postgres
-Username: postgres
-Password: postgres
+- Name : myserver (or any name you prefer)
+- Port: 5432
+- Hostname/address: (DOCKER CONTAINER NAME OR IP ADDRESS)
+- Maintenance database: postgres
+- Username: postgres
+- Password: postgres
 
 **Note:** The DOCKER CONTAINER NAME can be found by running the following command:
 

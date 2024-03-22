@@ -35,23 +35,25 @@ Despite using the same website, each tenant is associated with its own schema an
     pdm install
     ```
 
-5. Create a `.env` file in the root directory and add the following environment variables:
+5. Create a postgres database
+   - Follow the steps in the `_guide/database/local_database_setup.md` folder to create a postgres database locally using Docker.
+
+6. Create a `.env` file in the root directory and add the following environment variables:
 
     ```env
     ENVIRONMENT=development
+
     DB_USER=...
     DB_PASS=...
-    DB_HOST=... 
+    PGADMIN_DEFAULT_EMAIL=...
+    PGADMIN_DEFAULT_PASSWORD=...
+
     DB_PORT=...
+    DB_HOST=... 
     DB_NAME=...
-    PGADMIN_DEFAULT_EMAIL=madee@admin.com   
-    PGADMIN_DEFAULT_PASSWORD=AmazingPassword
     ```
 
     - check app.config.settings.py for more environment variables
-
-6. Create a postgres database
-   - Follow the steps in the `_guide/database` folder to create a postgres database on Google Cloud Platform or locally using Docker.
 
 7. Run alembic migrations:
 

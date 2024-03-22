@@ -10,7 +10,6 @@ indent-width = 4
 
 # Specifies which linting codes to enable, disable, or ignore, or which ones are fixable.
 [lint]
-preview = true
 select = [
     "W",   # pycodestyle (E, W)
     "E",   # pycodestyle (E, W)

@@ -11,6 +11,7 @@
 - [ ] Add a custom  logger with colors for each type of log
 - [x] Add Typer for CLI
 - [ ] do need pre-commit script for black
+- pretty errors?
 
 ## Extra Features
 

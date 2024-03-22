@@ -6,9 +6,10 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import MetaData, engine_from_config, pool, text
 
-from main import Base
+from app.models.base import Base
 
 # Load environment variables from .env file
+
 load_dotenv()
 
 # Alembic Config object used to run alembic commands
@@ -110,11 +111,7 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             try:
                 context.run_migrations()
-                logging.info(
-                    "\nAlembic script finished\n"
-                    "\033[92mOperation Successful if:\033[0m COMMIT\n"
-                    "\033[93mOperation Failed if:\033[0m ROLLBACK\n"
-                )
+                logging.info("\n\033[92mAlembic script finished\033[0m\n")
             except Exception as e:
                 logging.error(f"\033[91mError running migrations: {e}\033[0m")
                 context.get_context().connection.execute(text("ROLLBACK"))

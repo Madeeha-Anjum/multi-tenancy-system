@@ -10,22 +10,32 @@ Despite using the same website, each tenant is associated with its own schema an
 
 ## Installation :wrench:
 
-1. Clone the repository:
+### Pre-requisites :clipboard:
 
-2. Create a virtual environment: (Optional but recommended)
+1. Clone the repository
+
+2. Create a virtual environment
 
     ```bash
     python3 -m venv .venv
     source .venv/Scripts/activate
     ```
 
-3. Install dependencies using pip:
+3. Install [PDM](https://pdm.fming.dev/) (Python Development Master) package manager:
 
     ```bash
-    pip install -r requirements.txt
+        pip install pdm
     ```
 
-4. Create a `.env` file in the root directory and add the following environment variables:
+    - PDM is a modern Python package manager with a focus on simplicity and ease of use. It allows you to specify dependencies in a `pyproject.toml` file and install them using a lock file.
+
+4. Install dependencies using pdm:
+
+    ```bash
+    pdm install
+    ```
+
+5. Create a `.env` file in the root directory and add the following environment variables:
 
     ```env
     ENVIRONMENT=development
@@ -34,23 +44,24 @@ Despite using the same website, each tenant is associated with its own schema an
     DB_HOST=... 
     DB_PORT=...
     DB_NAME=...
+    PGADMIN_DEFAULT_EMAIL=madee@admin.com   
+    PGADMIN_DEFAULT_PASSWORD=AmazingPassword
     ```
 
     - check app.config.settings.py for more environment variables
 
-5. Create a postgres database
-   - Option1: Follow the steps in the `_guide` folder to create a postgres database on Google Cloud Platform
-   - Option2: Use the docker compose file in the `_guide` folder to run the database locally
-   - Option 3: Download postgres and pgAdmin and run the database locally
+6. Create a postgres database
+   - Follow the steps in the `_guide/database` folder to create a postgres database on Google Cloud Platform or locally using Docker.
 
-6. Run alembic migrations:
+7. Run alembic migrations:
 
     ```bash
     alembic upgrade head
     ```
 
     See [Databases Information](./_setup_guide/database/database_structure.md) for more information on the database structure.
-7. Optional: Run management commands to create tenants:
+
+8. Run management commands to create your first tenants:
     For example, to create a tenant with the name `company1` and the domain `company1.example.com`, run the following command:
 
     ```bash
@@ -60,25 +71,31 @@ Despite using the same website, each tenant is associated with its own schema an
     **Tips:**
     `python manage.py --help` for more information on the management commands available
 
+## Running the Application :running:
+
+1. Run the FastAPI application using the following 2 options:
+
+   ```bash
+       uvicorn main:app --reload 
+   ```
+
+   ````bash
+       pdm run start`
+   ````
+
+2. Access the interactive API documentation:
+   - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
+   - Alternatively, access [http://localhost:8000/redoc](http://localhost:8000/redoc) for ReDoc.
+
 <!-- 
-TODO: possible seas file for initial data
+TODO: possible seed file for initial data
 1. Load the initial data into the database: (optional)
    - When the application is run for the first time, it will create the necessary tables in the database.
    However, if you want to load some initial data into the tables, you can run the following file using the command below:
 
     -->
 
-## Usage :computer:
-
-1. Run the FastAPI application:
-
-    ```bash
-    uvicorn main:app --reload
-    ```
-
-2. Access the interactive API documentation:
-   - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.
-   - Alternatively, access [http://localhost:8000/redoc](http://localhost:8000/redoc) for ReDoc.
+<!-- ## Testing :white_check_mark: -->
 
 ## Tools and Technologies :hammer_and_wrench:
 

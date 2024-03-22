@@ -1,0 +1,30 @@
+[project]
+name = "multi-tenancy-system"
+version = "0.1.0"
+description = "A multi-tenancy system"
+authors = [{ name = "Madeeha-Anjum", email = "admin@" }]
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "pydantic>=2.6.4",
+    "psycopg2>=2.9.9",
+    "SQLAlchemy>=2.0.28",
+    "alembic>=1.13.1",
+    "typeguard>=4.1.5",
+    "typer>=0.9.0",
+    "pydantic-settings>=2.2.1", # for settings management 
+    "python-dotenv>=1.0.1",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = { text = "MIT" }
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.dev-dependencies]
+dev = ["ruff>=0.3.4"]
+
+[tool.pdm.scripts]
+start = "uvicorn main:app --reload"

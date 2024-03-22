@@ -1,4 +1,6 @@
-import os
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,9 +9,6 @@ class Settings(BaseSettings):
     # Loaded from environment
     ENVIRONMENT: str
 
-
-class Dev(BaseSettings):
-    # loaded from environment and .env file
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",
@@ -17,23 +16,44 @@ class Dev(BaseSettings):
         case_sensitive=True,
         populate_by_name=True,
     )
+
+
+class Dev(BaseSettings):
+    # loaded from environment and .env file
     ENVIRONMENT: str
+    app_name: str = "Multi tenancy API"
     DB_USER: str
     DB_PASS: str
     DB_HOST: str
     DB_PORT: str
     DB_NAME: str
 
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        populate_by_name=True,
+    )
+
+
+settings = Settings()
+
 
 def get_settings():
-    environment = os.getenv("ENVIRONMENT")
-    if environment is None:
-        os.environ["ENVIRONMENT"] = "development"
-        environment = os.getenv("ENVIRONMENT")
-
+    environment = settings.ENVIRONMENT
+    if not environment:
         raise ValueError("ENVIRONMENT environment variable is not set")
 
     if environment == "development":
         return Dev()
-    else:
-        return Settings()
+
+    # environment = os.getenv( "ENVIRONMENT" ),
+
+    # if not environment:
+    #     raise ValueError( "ENVIRONMENT environment variable is not set" )
+
+    # if environment == "development":
+    #     return Dev()
+    # else:
+    #     return Settings()

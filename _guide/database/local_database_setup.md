@@ -16,7 +16,7 @@
 3. Run the following command to start the database:
 
     ```bash
-      docker-compose -f postgres_compose.yml up --env-file .env
+      docker-compose -f postgres_compose.yml --env-file .env up
     ```
 
 4. open pgAdmin in your browser at `http://localhost` login with the credentials you provided in the .env file  PGADMIN_DEFAULT_EMAIL and PGADMIN_DEFAULT_PASSWORD

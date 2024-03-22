@@ -38,14 +38,17 @@ Despite using the same website, each tenant is associated with its own schema an
 5. Create a `.env` file in the root directory and add the following environment variables:
 
     ```env
+    # Environment settings
     ENVIRONMENT=development
+
+    # Database authentication
     DB_PASS=root
     DB_USER=user
     DB_NAME=db_name
     PGADMIN_DEFAULT_EMAIL=user@user.com
     PGADMIN_DEFAULT_PASSWORD=password
 
-
+    # Project settings
     DB_PORT=5432
     DB_HOST=localhost 
     ```
@@ -53,19 +56,19 @@ Despite using the same website, each tenant is associated with its own schema an
     - check app.config.settings.py for more environment variables
 
 6. Create a postgres database
-   - Follow the steps in the [./.guide/database/local_database_setup.md](./.guide/database/local_database_setup.md)
+   - Follow the steps in the ./.guide/database/local_database_setup.md
    - folder to create a postgres database locally using Docker.
 
-7. Run alembic migrations:
+7. Run alembic migrations and check your database for the tables created: `schemas->tables`
 
     ```bash
     alembic upgrade head
     ```
 
-    See [Databases Information](./_setup_guide/database/database_structure.md) for more information on the database structure.
+    See [Databases Information](.guide/database/database_structure.md) for more information on the database structure.
 
 8. Run management commands to create your first tenants:
-    For example, to create a tenant with the name `company1` and the domain `company1.example.com`, run the following command:
+    For example, to create a tenant with the name `company1` and the domain `company1.example.com`.Check your database for the new tenant created:
 
     ```bash
         python manage.py tenant create_tenant company1 company1 company1.localhost 
@@ -78,13 +81,11 @@ Despite using the same website, each tenant is associated with its own schema an
 
 1. Run the FastAPI application using the following 2 options:
 
-   ```bash
-       uvicorn main:app --reload 
-   ```
-
    ````bash
        pdm run start`
    ````
+
+    - optionally: `uvicorn main:app --reload`
 
 2. Access the interactive API documentation:
    - Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for Swagger UI.

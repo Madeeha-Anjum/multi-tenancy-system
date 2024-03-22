@@ -2,17 +2,7 @@
 
 1. Install Docker
 
-2. Navigate to location of the postgres_compose.yml file create a .env file with the following content:
-
-    ```bash
-   DB_PASS=root
-   DB_USER=user
-   DB_NAME=db_name
-   
-   PGADMIN_DEFAULT_EMAIL=user@gmail.com
-   PGADMIN_DEFAULT_PASSWORD=password
-    ```
-
+2. Navigate to location of the postgres_compose.yml file
 3. Run the following command to start the database:
 
     ```bash

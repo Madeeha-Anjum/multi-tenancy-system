@@ -1,7 +1,9 @@
 from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 load_dotenv()  # take environment variables from .env.
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
+__all__ = ["get_settings"]
 
 
 class Settings(BaseSettings):
@@ -47,13 +49,3 @@ def get_settings():
 
     if environment == "development":
         return Dev()
-
-    # environment = os.getenv( "ENVIRONMENT" ),
-
-    # if not environment:
-    #     raise ValueError( "ENVIRONMENT environment variable is not set" )
-
-    # if environment == "development":
-    #     return Dev()
-    # else:
-    #     return Settings()

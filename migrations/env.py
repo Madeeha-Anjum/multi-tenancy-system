@@ -83,13 +83,13 @@ def run_migrations_online() -> None:
     translated = MetaData(naming_convention=naming_convention)
 
     def translate_schema(table, to_schema, constraint, referred_schema):
-        # pylint: disable=unused-argument
         return to_schema
 
     for table in Base.metadata.tables.values():
         schema = "tenant_default" if table.schema == "tenant" else table.schema
         table.tometadata(translated, schema=schema, referred_schema_fn=translate_schema)
 
+    print(f"\n\033[95m {schema}\033[0m\n")
     # Create engine from Alembic config
     connectable = engine_from_config(
         config.get_section(

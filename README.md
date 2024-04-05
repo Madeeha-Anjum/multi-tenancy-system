@@ -2,11 +2,10 @@
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/) [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-282C34?style=flat&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/) [![Alembic](https://img.shields.io/badge/Alembic-4E98E8?style=flat&logo=alembic&logoColor=white)](https://alembic.sqlalchemy.org/en/latest/) [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/) [![Docker Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=flat&logo=docker&logoColor=white)](https://docs.docker.com/compose/) [![Google Cloud Platform](https://img.shields.io/badge/Google_Cloud_Platform-4285F4?style=flat&logo=google-cloud&logoColor=white)](https://cloud.google.com/) [![Pydantic](https://img.shields.io/badge/Pydantic-2B7DBC?style=flat&logo=python&logoColor=white)](https://pydantic-docs.helpmanual.io/) [![Uvicorn](https://img.shields.io/badge/Uvicorn-2B7DBC?style=flat&logo=python&logoColor=white)](https://www.uvicorn.org/) [![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white)](https://docs.pytest.org/en/6.2.x/) [![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)](https://git-scm.com/) [![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=flat&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/) [![Swagger UI](https://img.shields.io/badge/Swagger_UI-85EA2D?style=flat&logo=swagger&logoColor=black)](https://swagger.io/tools/swagger-ui/) [![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat&logo=markdown&logoColor=white)](https://www.markdownguide.org/)
 
-**A Scalable Web Application with Efficient Database Management**
+> A Scalable Web Application with Efficient Database Management
 
-In a multi-tenant system, there's one central software system, like a website, that serves multiple users or groups, also known as tenants. Each tenant, such as `company1.example.com` and `company2.example.com`, operates within this shared system.
-
-Despite using the same website, each tenant is associated with its own schema and has its own separate area or "space" within the system where they store their data and settings. This ensures that the data and settings of one tenant are completely separate and inaccessible to other tenants.
+A website, that serves multiple users or groups, also known as tenants.Each tenant `company1.example.com`  has its own database schema.
+Fork this repository to get started with a multi-tenant system using **FastAPI**, **PostgreSQL**, **Alembic**, **Docker**, **Ruff**, **Pdm**, **Typer**, and more.
 
 ## Installation
 
@@ -14,31 +13,35 @@ Despite using the same website, each tenant is associated with its own schema an
 
 1. Clone the repository
 
-2. Create a virtual environment
+2. Install [PDM](https://pdm.fming.dev/) (Python Development Master) package manager:
+
+   ```bash
+   pip install pdm --user
+   ```
+
+3. Create and activate the virtual environment
 
     ```bash
-    # Windows
-    py -m venv .venv
-    source .venv/Scripts/activate
-
-    # MacOS / Linux 
-    python3 -m venv .venv
-    source .venv/bin/activate
+    pdm venv create --with venv
     ```
-
-3. Install [PDM](https://pdm.fming.dev/) (Python Development Master) package manager:
 
     ```bash
-    pip install pdm
-    ```
+      pdm use
+      ```
+
+      ```bash
+      eval $(pdm venv activate )
+      ```
 
 ## Getting Started :wrench:
 
 ### Install python dependencies
 
-```bash
-pdm install
-```
+- May need to upgrade: `rustup default nightly && rustup update`
+
+   ```bash
+      pdm install --no-self 
+   ```
 
 ### Setup `.env` file
 
@@ -89,7 +92,7 @@ PGADMIN_DEFAULT_PASSWORD=password
         Password: postgres
    ```
 
-### Setup Database schemas and tables
+### Run  Alembic Migrations to create Database schemas and tables
 
 1. Run alembic migrations:
 
@@ -97,12 +100,10 @@ PGADMIN_DEFAULT_PASSWORD=password
     alembic upgrade head
     ```
 
-    > For more information on the database structure see [.guide/gcp_postgres_setup.md](./guide/gcp_postgres_setup.md).
+### Create Tenants in the Database
 
-2. Run management commands to create your first tenants:
-    >`python manage.py --help` for more information on the management commands available
-
-    For example, to create a tenant with the name `company1` and the domain `company1.example.com`, run the following command:
+1. Run management command  
+    - `python manage.py --help` for more information
 
     ```bash
     python manage.py tenant create_tenant company1 company1 company1.localhost 

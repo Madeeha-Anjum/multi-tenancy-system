@@ -2,26 +2,23 @@
 name = "multi-tenancy-system"
 version = "0.1.0"
 description = "A multi-tenancy system"
-authors = [{ name = "Madeeha-Anjum", email = "admin@" }]
-dependencies = [
-    "fastapi>=0.110.0",
-    "uvicorn>=0.29.0",
-    "pydantic>=2.6.4",
-    "psycopg2>=2.9.9",
-    "SQLAlchemy>=2.0.28",
-    "alembic>=1.13.1",
-    "typeguard>=4.1.5",
-    "typer>=0.9.0",
-    "pydantic-settings>=2.2.1", # for settings management 
-    "python-dotenv>=1.0.1",
-]
-requires-python = "==3.11.*"
+authors = [{ name = "Madeeha-Anjum", email = "email@email.com" }]
+requires-python = ">=3.11"
 readme = "README.md"
 license = { text = "MIT" }
-
-
-[tool.pdm]
-distribution = false
+# prerequisites = ["python>=3.11", "pdm>=2.13.0"]
+dependencies = [
+    "fastapi>=0.110.0",         # for web framework
+    "uvicorn>=0.29.0",          # for ASGI server
+    "pydantic>=2.6.4",          # for data validation
+    "psycopg2-binary>=2.9.9",   # for PostgreSQL
+    "SQLAlchemy>=2.0.28",       # for ORM
+    "alembic>=1.13.1",          # for database migrations
+    "typeguard>=4.1.5",         # for type checking
+    "typer>=0.9.0",             # for CLI
+    "pydantic-settings>=2.2.1", # for settings management 
+    "python-dotenv>=1.0.1",     # for environment variables
+]
 
 [tool.pdm.dev-dependencies]
 dev = ["ruff>=0.3.4"]

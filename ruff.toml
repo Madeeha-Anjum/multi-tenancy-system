@@ -26,6 +26,7 @@ select = [
 ignore = [
     "D100", # ignore missing docs
     "D101", # ignore missing docstring in public class 
+    "D104", # ignore missing docstring in public function
     "D103", # ignore missing docstring in public function
     "D415", # First line should end with a period, question mark, or exclamation point
     "B008", # Do not perform function calls in argument defaults.

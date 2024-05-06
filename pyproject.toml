@@ -1,9 +1,9 @@
 [project]
-name = "multi-tenancy-system"
+name = "multi_tenancy_system"
 version = "0.1.0"
-description = "A multi-tenancy system"
+description = "Default template for PDM package"
 authors = [{ name = "Madeeha-Anjum", email = "email@email.com" }]
-requires-python = ">=3.11"
+requires-python = "==3.12.*"
 readme = "README.md"
 license = { text = "MIT" }
 # prerequisites = ["python>=3.11", "pdm>=2.13.0"]
@@ -20,8 +20,11 @@ dependencies = [
     "python-dotenv>=1.0.1",     # for environment variables
 ]
 
+[tool.pdm]
+distribution = false
+
 [tool.pdm.dev-dependencies]
 dev = ["ruff>=0.3.4"]
 
 [tool.pdm.scripts]
-start = "uvicorn main:app --reload"
+start = "uvicorn multi_tenancy_system.main:app --reload --app-dir ./src"

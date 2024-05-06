@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:a5d29080fe40801a75d278847f52c163e2f34c96e29b9c3810c0a27005788e52"
+content_hash = "sha256:1b3da715c46c11fcbe8ab197785f0bb45ef23ccaa6f395ac44d5d55d0006469e"
 
 [[package]]
 name = "alembic"
@@ -365,9 +365,6 @@ version = "4.1.5"
 requires_python = ">=3.8"
 summary = "Run-time type checker for Python"
 groups = ["default"]
-dependencies = [
-    "typing-extensions>=4.7.0; python_version < \"3.12\"",
-]
 files = [
     {file = "typeguard-4.1.5-py3-none-any.whl", hash = "sha256:8923e55f8873caec136c892c3bed1f676eae7be57cdb94819281b3d3bc9c0953"},
     {file = "typeguard-4.1.5.tar.gz", hash = "sha256:ea0a113bbc111bcffc90789ebb215625c963411f7096a7e9062d4e4630c155fd"},

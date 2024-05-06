@@ -1,3 +1,8 @@
+# TODO create a Singleton of the settings class then get tenant singleton
+
+
+import os
+
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -22,8 +27,9 @@ class Settings(BaseSettings):
 
 class Dev(BaseSettings):
     # loaded from environment and .env file
+    BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
     ENVIRONMENT: str
-    app_name: str = "Multi tenancy API"
+    APP_NAME: str = "Multi tenancy API"
     DB_USER: str
     DB_PASS: str
     DB_HOST: str

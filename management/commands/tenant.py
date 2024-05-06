@@ -8,13 +8,13 @@ app = typer.Typer()
 @app.command(name="create_tenant")
 def create_tenant(name: str, schema: str, host: str):
     # Start the server subprocess
-    with Popen(["uvicorn", "main:app"], stdout=PIPE, stderr=PIPE) as server_process:
+    with Popen(["uvicorn", "main:app", "--reload", "--app-dir", "./src"], stdout=PIPE, stderr=PIPE) as server_process:
         try:
             # Perform any operations while the server is running
             # For example, you could wait for user input to stop the server
-            from main import tenant_create
+            from multi_tenancy_system.api.tenant import service
 
-            tenant_create(name=name, schema=schema, host=host)
+            service.create_tenant(name=name, schema=schema, host=host)
 
         finally:
             # Terminate the server subprocess

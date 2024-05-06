@@ -18,7 +18,7 @@ Each migration has a unique version number that is that is database to find the 
     - This command applies all the migrations that have not been applied to the database yet.
     - This command is useful when you want to run all the migrations on a new database.
   
-4. `a1alembic downgrade -1`
+4. `alembic downgrade -1`
     - This command rolls back the most recent migration applied to the database.
 
 5. `alembic downgrade base`

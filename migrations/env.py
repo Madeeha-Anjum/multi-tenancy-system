@@ -87,7 +87,7 @@ def run_migrations_online() -> None:
         schema = "tenant_default" if not table.schema else table.schema
         table.schema = translate_schema(table, schema, None, None)
 
-    print(f"\n\033[95m Running on schema {schema}\033[0m\n")
+        print(f"\n\033[95m Running on schema {schema}\033[0m\n")
 
     # Create engine from Alembic config
     connectable = engine_from_config(

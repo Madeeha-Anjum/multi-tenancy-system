@@ -28,6 +28,8 @@ ignore = [
     "D101", # ignore missing docstring in public class 
     "D104", # ignore missing docstring in public function
     "D103", # ignore missing docstring in public function
+    "D102", # ignore missing docstring in public function
+    "D107", # ignore missing docstring in __init__
     "D415", # First line should end with a period, question mark, or exclamation point
     "B008", # Do not perform function calls in argument defaults.
 ]

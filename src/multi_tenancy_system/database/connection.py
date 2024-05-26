@@ -9,19 +9,7 @@ from sqlalchemy.orm import Session
 
 from .engine import engine
 
-
 # automattically get the tenant from the request header based on host and port and return corredct db session
-def get_tenant(req: Request) -> Tenant:
-    """Get the tenant based on the request header"""
-    subdomain = req.headers["host"].split(":", 1)[0]
-
-    with with_db(None) as db:
-        tenant = db.query(Tenant).filter(Tenant.domain_name == subdomain).one_or_none()
-
-    if tenant is None:
-        raise HTTPException(status_code=404, detail="Tenant not found")
-
-    return tenant
 
 
 def get_tenant_specific_metadata():
@@ -32,14 +20,47 @@ def get_tenant_specific_metadata():
     return meta
 
 
-# this is us purposefully selecting the schema we want to use instead of using the port and host names to select the schema
+# ------------------------------------------------------------------------------------------------------
+
+
+def get_sub_domain_from_request(req: Request) -> str:
+    # eacmple
+    # google.localhost:8000
+    # fun.google.localhost:8000
+    fqdn = (req.headers["host"].split(":", 1)[0]).split(".")[-2]
+    return fqdn
+
+
+def get_default_db_namespace_session(sub_domain=Depends(get_sub_domain_from_request)):
+    return with_default_db_namespace()
+
+
+def get_tenant_db_namespace_session(tenant_schema_name=Depends(get_sub_domain_from_request)):
+    # check if tenant exists in the "shared" schema
+    with with_default_db_namespace() as db:
+        tenant = db.query(Tenant).filter(Tenant.sub_domain == tenant_schema_name).one_or_none()
+
+    if tenant is None:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    return with_db_namespace(tenant_schema=tenant_schema_name)
+
+
 @contextmanager
-def with_db(tenant_schema: Optional[str]):
+def with_default_db_namespace():
+    connectable = engine.execution_options()
+    try:
+        db = Session(autocommit=False, autoflush=False, bind=connectable)
+        yield db
+    finally:
+        db.close()
+
+
+@contextmanager
+def with_db_namespace(tenant_schema: Optional[str]):
     """Get a database connection for the given tenant schema"""
-    if tenant_schema:
-        schema_translate_map = dict(tenant=tenant_schema)
-    else:
-        schema_translate_map = None
+
+    schema_translate_map = dict(tenant=tenant_schema)
 
     connectable = engine.execution_options(schema_translate_map=schema_translate_map)
 
@@ -48,9 +69,3 @@ def with_db(tenant_schema: Optional[str]):
         yield db
     finally:
         db.close()
-
-
-# def get_db(self, tenant: Tenant = Depends(get_tenant)):
-#     """Get the database session for the current tenant"""
-#     with self.with_db(tenant.tenant_name) as db:
-#         yield db  # returning the db and then completed when the function is done

@@ -2,6 +2,5 @@ from pydantic import BaseModel
 
 
 class TenantInfo(BaseModel):
-    name: str
-    schema: str
-    host: str
+    tenant_schema_name: str
+    sub_domain: str

@@ -28,8 +28,12 @@ ignore = [
     "D101", # ignore missing docstring in public class 
     "D104", # ignore missing docstring in public function
     "D103", # ignore missing docstring in public function
+    "D102", # ignore missing docstring in public function
+    "D107", # ignore missing docstring in __init__
     "D415", # First line should end with a period, question mark, or exclamation point
     "B008", # Do not perform function calls in argument defaults.
+    "D209", #  Multi-line docstring closing quotes should be on a separate line
+    "D205", # 1 blank line required between summary line and description
 ]
 fixable = [
     "I001", # isort (I001)

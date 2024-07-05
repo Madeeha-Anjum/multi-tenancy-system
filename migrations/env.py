@@ -6,11 +6,9 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import MetaData, engine_from_config, pool, text
 
-from app.models.base import Base
+from src.multi_tenancy_system.models.base import Base
 
-# Load environment variables from .env file
-
-load_dotenv()
+load_dotenv()  # Load environment variables from .env file
 
 # Alembic Config object used to run alembic commands
 config = context.config
@@ -73,9 +71,9 @@ def run_migrations_online() -> None:
 
     """
     naming_convention = {
+        "ix": "ix_%(column_0_label)s",
         "uq": "uq_%(table_name)s_%(column_0_name)s",
-        "ix": "ix_%(table_name)s_%(column_0_name)s",
-        "ck": "ck_%(table_name)s_%(constraint_name)s",
+        "ck": "ck_%(table_name)s_%(column_0_name)s",
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
         "pk": "pk_%(table_name)s",
     }
@@ -86,10 +84,11 @@ def run_migrations_online() -> None:
         return to_schema
 
     for table in Base.metadata.tables.values():
-        schema = "tenant_default" if table.schema == "tenant" else table.schema
-        table.tometadata(translated, schema=schema, referred_schema_fn=translate_schema)
+        schema = "tenant_default" if not table.schema else table.schema
+        table.schema = translate_schema(table, schema, None, None)
 
-    print(f"\n\033[95m {schema}\033[0m\n")
+        print(f"\n\033[95m Running on schema {schema}\033[0m\n")
+
     # Create engine from Alembic config
     connectable = engine_from_config(
         config.get_section(

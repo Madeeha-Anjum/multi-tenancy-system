@@ -2,8 +2,9 @@ from contextlib import contextmanager
 from typing import Optional
 
 from fastapi import Depends, HTTPException, Request
-from multi_tenancy_system.models.tenant import Tenant
 from sqlalchemy.orm import Session
+
+from multi_tenancy_system.models.tenant import Tenant
 
 from .engine import engine
 

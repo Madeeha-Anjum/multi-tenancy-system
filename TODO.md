@@ -12,8 +12,8 @@
 - [ ] Add a custom logger with colors for each type of log
 - [x] Add Typer for CLI
 - [ ] do need pre-commit script for black
-- pretty errors?
-- remove this todo list
+- [ ] pretty errors?
+- [ ] remove this todo list
 - [x] update tpyer to include "--"
 - [x] user url lib
 -
@@ -29,3 +29,4 @@
 - [ ] Deploy to Cloud Run
 - [ ] Add permissions to API (Think about this one)
 - [ ] Add user roles
+- [ ] might be fun to do tear up and tear down tests

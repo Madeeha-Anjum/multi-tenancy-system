@@ -1,10 +1,7 @@
 from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from multi_tenancy_system.database.connection import (
-    get_default_db_namespace_session,
-    get_tenant_db_namespace_session,
-)
+from multi_tenancy_system.database import get_default_db_session, get_tenant_db_session
 from multi_tenancy_system.models.tenant import Tenant
 from sqlalchemy.orm import Session
 
@@ -17,7 +14,7 @@ routes = APIRouter(
 
 
 @routes.get("/", response_model=TenantInfo)
-def get_current_tenant(tenant: Tenant = Depends(get_default_db_namespace_session)):
+def get_current_tenant(tenant: Tenant = Depends(get_default_db_session)):
     """Get the current tenant"""
     return JSONResponse(
         content=jsonable_encoder(tenant),
@@ -36,7 +33,7 @@ def create_tenant(tenant: TenantInfo):
 
 
 @routes.post("/x", response_model=TenantInfo)
-def test(body: TenantInfo, db: Session = Depends(get_tenant_db_namespace_session)):
+def test(body: TenantInfo, db: Session = Depends(get_tenant_db_session)):
     # do stuff
     # go and fetch a list of candies from the db
     print("Hello Madeeha!")

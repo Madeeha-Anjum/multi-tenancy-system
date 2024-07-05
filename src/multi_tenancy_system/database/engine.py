@@ -1,5 +1,6 @@
-from multi_tenancy_system.settings import get_settings
 from sqlalchemy import create_engine
+
+from multi_tenancy_system.settings import get_settings
 
 __all__ = ["engine"]
 

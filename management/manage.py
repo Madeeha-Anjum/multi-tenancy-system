@@ -6,28 +6,17 @@ $ python manage.py <command> <subcommand> <options>
     - options: arguments and flags for the subcommand
 """
 
-# import importlib
-# import os
+import os
+import sys
 
-# import typer
-
-# app = typer.Typer()
-
-# COMMANDS_MODULE = "management.commands"
-
-# for file_name in os.listdir(COMMANDS_MODULE.replace(".", "/")):
-#     if file_name.startswith("__"):
-#         continue
-
-#     # import each file as a module
-#     module = importlib.import_module(f"{COMMANDS_MODULE}.{file_name[:-3]}")
-
-#     # add the module as a subcommand to the app typer
-#     app.add_typer(module.app, name=file_name[:-3])
-
-# if __name__ == "__main__":
-#     app()
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 import typer
+from commands import tenant
 
 app = typer.Typer()
+app.add_typer(tenant.app, name="tenant")
+
+
+if __name__ == "__main__":
+    app()

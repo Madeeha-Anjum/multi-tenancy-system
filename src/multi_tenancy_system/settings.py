@@ -3,6 +3,10 @@ from typing import ClassVar
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .logger import get_logger
+
+logger = get_logger()
+
 
 def get_settings():
     environment = os.getenv("ENVIRONMENT")
@@ -41,6 +45,7 @@ class Settings(BaseSettings):
 
     def __new__(cls):
         if cls._instance is None:
+            logger.info("Settings instance")
             print(f"\n{__name__}=====> \033[92mSettings __new__\033[0m\n")
             cls._instance = super(Settings, cls).__new__(cls)
             # Put any initialization here.
@@ -49,6 +54,7 @@ class Settings(BaseSettings):
 
     @classmethod
     def instance(cls) -> "Settings":
+        logger.info("Settings instance")
         print(f"\n{__name__}=====> \033[92mSettings instance\033[0m\n")
         if cls._instance is None:
             cls._instance = cls()

@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
+
 from multi_tenancy_system.database import get_default_db_session, get_tenant_db_session
 from multi_tenancy_system.models.tenant import Tenant
-from sqlalchemy.orm import Session
 
 from .schema import TenantInfo
 

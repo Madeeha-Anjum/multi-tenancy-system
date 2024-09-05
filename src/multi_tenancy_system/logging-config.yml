@@ -1,0 +1,21 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    format: "[%(asctime)s] [%(name)s] %(levelname)-8s %(message)s"
+    datefmt: "%Y-%m-%dT%H:%M:%S%z"
+handlers:
+  stdout:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+loggers:
+  root:
+    level: DEBUG
+    handlers:
+      - stdout
+  faker:
+    level: INFO
+    handlers:
+      - stdout
